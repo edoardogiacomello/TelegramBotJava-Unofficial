@@ -15,7 +15,7 @@ public class Example {
 		//Instantiate a new bot 
 		TelegramBot bot= new TelegramBot(authToken,true);
 		
-		User botInfo = bot.getMe();
+		//User botInfo = bot.getMe();
 		
 		//Receiving updates: Method 1
 		List<Update> receivedUpdates = bot.getUpdates();
@@ -36,13 +36,15 @@ public class Example {
 				@Override
 				public void onMessageReceived(Message message) {
 					//Do something with your message from the user
-					
+					System.out.println("Message received");
 				}
 			};
 			//Register the handler
 			bot.registerForUpdates(updateHandler);
 			//Start a new polling thread
 			bot.startPolling(pollingDelayMs);
+			Scanner s = new Scanner(System.in);
+			s.nextLine();
 		} finally {
 			//When done, remember to stop the polling thread
 			bot.stopPolling();
