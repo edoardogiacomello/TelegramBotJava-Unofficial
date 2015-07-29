@@ -36,6 +36,7 @@ public class Example {
 				@Override
 				public void onMessageReceived(Message message) {
 					//Do something with your message from the user
+					
 				}
 			};
 			//Register the handler

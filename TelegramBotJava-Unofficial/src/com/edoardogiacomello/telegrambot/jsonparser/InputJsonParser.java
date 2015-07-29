@@ -1,6 +1,11 @@
 package com.edoardogiacomello.telegrambot.jsonparser;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,6 +14,7 @@ import java.util.logging.Logger;
 
 import javax.swing.DebugGraphics;
 
+import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -77,12 +83,9 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 	}
 }
 
-	private static JSONObject parseJSON(InputStream responseStream){
-		Scanner scanner = new Scanner(responseStream);
-		StringBuffer responseString = new StringBuffer();
-		while (scanner.hasNext()) responseString.append(scanner.next());
-		scanner.close();
-		return new JSONObject(responseString.toString());
+	private static JSONObject parseJSON(InputStream responseStream) throws IOException{
+		String jsonString = IOUtils.toString(responseStream,"UTF-8"); 
+		return new JSONObject(jsonString);
 		
 	}
 
