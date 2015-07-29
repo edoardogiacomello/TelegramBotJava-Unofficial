@@ -7,6 +7,8 @@ import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.swing.DebugGraphics;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -34,6 +36,7 @@ public class InputJsonParser {
  * @return
  */
 public static List<TelegramData> parseResponse(InputStream responseStream){
+	try{
 	List<TelegramData> responseList = new ArrayList<TelegramData>();
 	JSONObject jsonResponse = parseJSON(responseStream);
 	/* Debug */ //System.out.println("Received:" + jsonResponse.toString());
@@ -68,6 +71,10 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 		return null;
 		}
 	return responseList;
+	}catch (Exception e){
+		Logger.getGlobal().log(Level.WARNING, "Got bad response from the server, please check the authorization token or your internet connection");
+		return new ArrayList<TelegramData>(); 
+	}
 }
 
 	private static JSONObject parseJSON(InputStream responseStream){
