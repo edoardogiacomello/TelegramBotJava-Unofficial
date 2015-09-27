@@ -32,6 +32,7 @@ public class TelegramBot{
 	private int lastUpdateId;
 	private boolean autoConsumeUpdates;
 	private TelegramEvents eventHandler;
+	@SuppressWarnings("rawtypes")
 	private ScheduledFuture scheduledPolling;
 	private ScheduledExecutorService pollingExecutor;
 	/**
@@ -110,7 +111,7 @@ public class TelegramBot{
 	 */
 	public Message sendMessage(int chatId, String text, boolean disableWebPagePreview, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-		if(text == null || text.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty text message");
+		if(text == null || text.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty text message");
 		//Building request parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -136,7 +137,7 @@ public class TelegramBot{
 	 */
 	public Message forwardMessage(int chatId, int fromChatId, int messageId){
 		//Checking required parameters
-				if(chatId <= 0 || fromChatId<=0 || messageId <=0) throw new IllegalArgumentException("You must specify at least a chatId");
+				if(chatId == 0 || fromChatId==0 || messageId <=0) throw new IllegalArgumentException("You must specify at least a chatId");
 				//Building request parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -162,7 +163,7 @@ public class TelegramBot{
 	 */
 	public Message sendPhoto(int chatId, String photo, String caption, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-				if(photo == null || photo.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty photo id");
+				if(photo == null || photo.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty photo id");
 				//Building request parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -190,7 +191,7 @@ public class TelegramBot{
 	 */
 	public Message sendAudio(int chatId, String audio, int duration, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-		if(audio == null || audio.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty audio id");
+		if(audio == null || audio.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty audio id");
 		//Building request parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -218,7 +219,7 @@ public class TelegramBot{
 	 */
 	public Message sendDocument(int chatId, String document, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-		if(document == null || document.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty file id");
+		if(document == null || document.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty file id");
 		//Building request parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -244,7 +245,7 @@ public class TelegramBot{
 	 */
 	public Message sendSticker(int chatId, String sticker, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-				if(sticker == null || sticker.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty sticker id");
+				if(sticker == null || sticker.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty sticker id");
 				//Building request parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -272,7 +273,7 @@ public class TelegramBot{
 	 */
 	public Message sendVideo(int chatId, String photo, String video, int duration, String caption, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-				if(video == null || video.equals("") || chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty video id");
+				if(video == null || video.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty video id");
 				//Building request parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -301,7 +302,7 @@ public class TelegramBot{
 	 */
 	public Message sendLocation(int chatId, Float latitude, Float longitude, int replyToMessageId, CustomReplyKeyboard replyMarkup){//TODO: implement me
 		//Checking required parameters
-		if(chatId<=0) throw new IllegalArgumentException("You must specify at least a chatId");
+		if(chatId==0) throw new IllegalArgumentException("You must specify at least a chatId");
 		//Building request parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
@@ -325,7 +326,7 @@ public class TelegramBot{
 	 */
 	public void sendChatAction(int chatId, ChatAction action){
 		//Checking required parameters
-				if(chatId<=0 || action==null) throw new IllegalArgumentException("You must specify at least a chatId and a valid action");
+				if(chatId==0 || action==null) throw new IllegalArgumentException("You must specify at least a chatId and a valid action");
 				//Building request parameters
 				List<NameValuePair> params = new ArrayList<NameValuePair>();
 				params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
