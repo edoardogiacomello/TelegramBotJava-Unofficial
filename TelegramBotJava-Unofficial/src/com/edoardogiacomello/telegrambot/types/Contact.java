@@ -5,7 +5,7 @@ public class Contact implements TelegramData {
 private String phoneNumber;
 private String firstName;
 private String lastName;
-private String userId;
+private Integer userId;
 public Contact(String phoneNumber, String firstName) {
 	super();
 	this.phoneNumber = phoneNumber;
@@ -20,13 +20,13 @@ public String getFirstName() {
 public String getLastName() {
 	return lastName;
 }
-public String getUserId() {
+public Integer getUserId() {
 	return userId;
 }
 public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
-public void setUserId(String userId) {
+public void setUserId(Integer userId) {
 	this.userId = userId;
 }
 

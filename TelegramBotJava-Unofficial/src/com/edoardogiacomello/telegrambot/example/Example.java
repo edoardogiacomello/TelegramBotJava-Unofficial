@@ -1,13 +1,12 @@
 package com.edoardogiacomello.telegrambot.example;
 
-import java.util.List;
-import java.util.Scanner;
-
 import com.edoardogiacomello.telegrambot.main.TelegramBot;
 import com.edoardogiacomello.telegrambot.main.TelegramEvents;
 import com.edoardogiacomello.telegrambot.types.Message;
 import com.edoardogiacomello.telegrambot.types.Update;
-import com.edoardogiacomello.telegrambot.types.User;
+
+import java.util.List;
+import java.util.Scanner;
 
 public class Example {
 

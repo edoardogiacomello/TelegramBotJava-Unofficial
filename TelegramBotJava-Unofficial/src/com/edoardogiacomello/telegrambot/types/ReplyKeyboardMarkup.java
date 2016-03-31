@@ -1,9 +1,9 @@
 package com.edoardogiacomello.telegrambot.types;
 
-import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.List;
 
 public class ReplyKeyboardMarkup extends CustomReplyKeyboard {
 	private List<List<String>> keyboard;

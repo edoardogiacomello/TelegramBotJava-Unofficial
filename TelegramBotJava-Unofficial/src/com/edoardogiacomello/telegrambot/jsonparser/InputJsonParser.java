@@ -1,36 +1,16 @@
 package com.edoardogiacomello.telegrambot.jsonparser;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.StringWriter;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.swing.DebugGraphics;
-
+import com.edoardogiacomello.telegrambot.types.*;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.edoardogiacomello.telegrambot.types.Audio;
-import com.edoardogiacomello.telegrambot.types.Chat;
-import com.edoardogiacomello.telegrambot.types.Contact;
-import com.edoardogiacomello.telegrambot.types.Document;
-import com.edoardogiacomello.telegrambot.types.GroupChat;
-import com.edoardogiacomello.telegrambot.types.Location;
-import com.edoardogiacomello.telegrambot.types.Message;
-import com.edoardogiacomello.telegrambot.types.PhotoSize;
-import com.edoardogiacomello.telegrambot.types.Sticker;
-import com.edoardogiacomello.telegrambot.types.TelegramData;
-import com.edoardogiacomello.telegrambot.types.Update;
-import com.edoardogiacomello.telegrambot.types.User;
-import com.edoardogiacomello.telegrambot.types.Video;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class InputJsonParser {
  private InputJsonParser() {
@@ -123,7 +103,7 @@ return null;
 	private static Contact parseContact(JSONObject jsonContact) {
 		Contact responseContact = new Contact(jsonContact.getString("phone_number"), jsonContact.getString("first_name"));
 		if (jsonContact.has("last_name")) responseContact.setLastName(jsonContact.getString("last_name"));
-		if (jsonContact.has("user_id")) responseContact.setUserId(jsonContact.getString("user_id"));
+		if (jsonContact.has("user_id")) responseContact.setUserId(jsonContact.getInt("user_id"));
 		return responseContact;
 	}
 

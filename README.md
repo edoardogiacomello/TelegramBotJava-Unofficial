@@ -15,7 +15,7 @@ You can find a .zip file containing this and all the necessary dependencies [her
 	 User botInfo = bot.getMe();
 ###Receiving Updates
 You can choose of receiving updates from the server in two ways:
-#### Method 1: Synchronous updates
+####Method 1: Synchronous updates
 Use this method if you need to receive updates at a pre-determined moment. Notice that this method will run on the same thread you call it.
 	List<Update> receivedUpdates = bot.getUpdates();
 		for (Update newUpdate : receivedUpdates) {

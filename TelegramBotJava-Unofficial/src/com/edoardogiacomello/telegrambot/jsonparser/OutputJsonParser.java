@@ -1,5 +1,15 @@
 package com.edoardogiacomello.telegrambot.jsonparser;
 
+import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import com.edoardogiacomello.telegrambot.types.TelegramData;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClients;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -9,17 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.HttpClients;
-
-import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
-import com.edoardogiacomello.telegrambot.types.TelegramData;
 
 public class OutputJsonParser {
 	private static final String requestBaseUrl = "https://api.telegram.org/bot";

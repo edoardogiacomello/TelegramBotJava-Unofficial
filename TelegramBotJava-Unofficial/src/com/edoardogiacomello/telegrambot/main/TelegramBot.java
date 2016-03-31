@@ -1,5 +1,11 @@
 package com.edoardogiacomello.telegrambot.main;
 
+import com.edoardogiacomello.telegrambot.jsonparser.OutputJsonParser;
+import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import com.edoardogiacomello.telegrambot.types.*;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executors;
@@ -8,19 +14,6 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
-
-import com.edoardogiacomello.telegrambot.jsonparser.OutputJsonParser;
-import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
-import com.edoardogiacomello.telegrambot.types.ChatAction;
-import com.edoardogiacomello.telegrambot.types.CustomReplyKeyboard;
-import com.edoardogiacomello.telegrambot.types.Message;
-import com.edoardogiacomello.telegrambot.types.TelegramData;
-import com.edoardogiacomello.telegrambot.types.Update;
-import com.edoardogiacomello.telegrambot.types.User;
-import com.edoardogiacomello.telegrambot.types.UserProfilePhotos;
 
 /**
  * This class represent the main interface of a telegram bot.
@@ -154,7 +147,7 @@ public class TelegramBot{
 	
 	/**
 	 * Use this method to send photos
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param photo Photo to send. You can either pass a file_id as String to resend a photo that is already on the Telegram servers, or upload a new photo using multipart/form-data.
 	 * @param caption (Optional) Photo caption (may also be used when resending photos by file_id).
 	 * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
@@ -211,7 +204,7 @@ public class TelegramBot{
 	
 	/**
 	 *Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param document File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
 	 * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
 	 * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
@@ -237,7 +230,7 @@ public class TelegramBot{
 	
 	/**
 	 * Use this method to send .webp stickers.
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param sticker Sticker to send. You can either pass a file_id as String to resend a sticker that is already on the Telegram servers, or upload a new sticker using multipart/form-data.
 	 * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
 	 * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
@@ -263,7 +256,7 @@ public class TelegramBot{
 	
 	/**
 	 * Use this method to send photos
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param video Video to send. You can either pass a file_id as String to resend a video that is already on the Telegram servers, or upload a new video file using multipart/form-data.
 	 * @param duration (Optional) Duration of sent video in seconds
 	 * @param caption (Optional) Video caption (may also be used when resending photos by file_id).
@@ -293,14 +286,14 @@ public class TelegramBot{
 	
 	/**
 	 * Use this method to send point on the map.
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param latitude Latitude of location
 	 * @param longitude Longitude of location
 	 * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
 	 * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
 	 * @return On success, the sent Message is returned, on failure a null object is returned
 	 */
-	public Message sendLocation(int chatId, Float latitude, Float longitude, int replyToMessageId, CustomReplyKeyboard replyMarkup){//TODO: implement me
+	public Message sendLocation(int chatId, Float latitude, Float longitude, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
 		if(chatId==0) throw new IllegalArgumentException("You must specify at least a chatId");
 		//Building request parameters
@@ -321,7 +314,7 @@ public class TelegramBot{
 	
 	/**
 	 * Use this method when you need to tell the user that something is happening on the bot's side. The status is set for 5 seconds or less (when a message arrives from your bot, Telegram clients clear its typing status).
-	 * @param ChatId Unique identifier for the message recipient — User or GroupChat id
+	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param action Type of action to broadcast.
 	 */
 	public void sendChatAction(int chatId, ChatAction action){
