@@ -13,7 +13,8 @@ public enum TelegramMethods {
 	sendChatAction("sendChatAction"),
 	getUserProfilePhotos("getUserProfilePhotos"),
 	getUpdates("getUpdates"), 
-	setWebhook("setWebhook");
+	setWebhook("setWebhook"),
+	sendVoice("sendVoice");
 	private String value;
 	private TelegramMethods(String value){
 		this.value = value;

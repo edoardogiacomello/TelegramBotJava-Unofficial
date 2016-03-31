@@ -38,10 +38,10 @@ public class OutputJsonParser {
 	}
 	
 	/**
-	 * Returns a list containing all received responses
-	 * @param method
-	 * @param paramsData
-	 * @return List containing objects received from server, or null if request fails
+	 * Returns a list containing all received responses starting from a telegram request.
+	 * @param method The {@link TelegramMethods} identifying the request
+	 * @param paramsData a list of {@link NameValuePair} containing the parameters
+	 * @return List containing response objects received from server, or null if the request fails
 	 */
 	public List<TelegramData> request(TelegramMethods method,  List<NameValuePair> paramsData){
 		List<NameValuePair> params = paramsData;

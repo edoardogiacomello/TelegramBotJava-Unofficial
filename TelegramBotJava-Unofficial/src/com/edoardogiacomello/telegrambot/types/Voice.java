@@ -37,4 +37,12 @@ public class Voice implements TelegramData{
     public Integer getFileSize() {
         return fileSize;
     }
+
+    public void setMimeType(String mimeType) {
+        this.mimeType = mimeType;
+    }
+
+    public void setFileSize(Integer fileSize) {
+        this.fileSize = fileSize;
+    }
 }

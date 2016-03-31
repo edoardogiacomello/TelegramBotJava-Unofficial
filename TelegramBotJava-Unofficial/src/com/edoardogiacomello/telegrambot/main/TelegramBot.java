@@ -352,6 +352,28 @@ public class TelegramBot{
 				}
 				return null;
 	}
+
+	public Message sendVoice(int chatId, String voice, int duration, boolean disableNotification, int replyToMessageId, CustomReplyKeyboard replyMarkup){
+		//Checking required parameters
+		if(voice == null || voice.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty voice id");
+		//Building request parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));
+		params.add(new BasicNameValuePair("voice", voice));
+
+
+		if(duration>0) params.add(new BasicNameValuePair("duration", Integer.toString(duration)));
+		if (disableNotification) params.add(new BasicNameValuePair("disable_notification", "true" ));
+		if(replyToMessageId!=0)  params.add(new BasicNameValuePair("reply_to_message_id", Integer.toString(replyToMessageId)));
+		if(replyMarkup!= null) params.add(new BasicNameValuePair("reply_markup", replyMarkup.toJSONObject().toString()));
+		//Making request
+		List<TelegramData> responseList = outputParser.request(TelegramMethods.sendVoice, params);
+		//Interpreting response
+		for (TelegramData response : responseList) {
+			if (response instanceof Message) return ((Message) response);
+		}
+		return null;
+	}
 		
 	public void startPolling(long millis){
 		pollingExecutor = Executors.newSingleThreadScheduledExecutor();

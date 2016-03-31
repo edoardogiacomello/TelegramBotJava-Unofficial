@@ -21,15 +21,21 @@ public class Message implements TelegramData {
 	private List<PhotoSize> photo;
 	private Sticker Sticker;
 	private Video video;
+	private Voice voice;
+	private String caption;
 	private Contact contact;
 	private Location location;
 	private User newChatParticipant;
 	private User leftChatParticipant;
-	private String NewChatTitle;
+	private String newChatTitle;
 	private List<PhotoSize> newChatPhoto;
 	private boolean deleteChatPhoto;
 	private boolean groupChatCreated;
-	private String caption;
+	private boolean supergroupChatCreated;
+	private boolean channelChatCreated;
+	private int migrateToChatId;
+	private int migrateFromChatId;
+
 	
 	public String getCaption() {
 		return caption;
@@ -107,7 +113,7 @@ public class Message implements TelegramData {
 
 
 	public void setNewChatTitle(String newChatTitle) {
-		NewChatTitle = newChatTitle;
+		this.newChatTitle = newChatTitle;
 	}
 
 
@@ -125,6 +131,25 @@ public class Message implements TelegramData {
 		this.groupChatCreated = groupChatCreated;
 	}
 
+	public void setVoice(Voice voice) {
+		this.voice = voice;
+	}
+
+	public void setSupergroupChatCreated(boolean supergroupChatCreated) {
+		this.supergroupChatCreated = supergroupChatCreated;
+	}
+
+	public void setChannelChatCreated(boolean channelChatCreated) {
+		this.channelChatCreated = channelChatCreated;
+	}
+
+	public void setMigrateToChatId(int migrateToChatId) {
+		this.migrateToChatId = migrateToChatId;
+	}
+
+	public void setMigrateFromChatId(int migrateFromChatId) {
+		this.migrateFromChatId = migrateFromChatId;
+	}
 
 	public int getMessageId() {
 		return messageId;
@@ -212,7 +237,7 @@ public class Message implements TelegramData {
 
 
 	public String getNewChatTitle() {
-		return NewChatTitle;
+		return newChatTitle;
 	}
 
 
@@ -230,6 +255,25 @@ public class Message implements TelegramData {
 		return groupChatCreated;
 	}
 
+	public Voice getVoice() {
+		return voice;
+	}
+
+	public int getMigrateFromChatId() {
+		return migrateFromChatId;
+	}
+
+	public int getMigrateToChatId() {
+		return migrateToChatId;
+	}
+
+	public boolean isSupergroupChatCreated() {
+		return supergroupChatCreated;
+	}
+
+	public boolean isChannelChatCreated() {
+		return channelChatCreated;
+	}
 
 	public Message(int messageId, User from, int date, Chat chat) {
 		super();

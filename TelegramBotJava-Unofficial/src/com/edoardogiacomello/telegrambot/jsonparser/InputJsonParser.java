@@ -22,8 +22,8 @@ public class InputJsonParser {
  * @return
  */
 public static List<TelegramData> parseResponse(InputStream responseStream){
-	try{
 	List<TelegramData> responseList = new ArrayList<TelegramData>();
+	try{
 	JSONObject jsonResponse = parseJSON(responseStream);
 	/* Debug */ //System.out.println("Received:" + jsonResponse.toString());
 	//Checking if request has been satisfied
@@ -53,13 +53,14 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 			}
 			
 		}
-		} else {Logger.getGlobal().log(Level.WARNING, "Telegram request failed: " + jsonResponse.toString());
-		return null;
+		} else {
+		Logger.getGlobal().log(Level.WARNING, "Telegram request failed: " + jsonResponse.toString());
 		}
-	return responseList;
 	}catch (Exception e){
 		Logger.getGlobal().log(Level.WARNING, "Got bad response from the server, please check the authorization token or your internet connection");
-		return new ArrayList<TelegramData>(); 
+	} finally
+	{
+		return responseList;
 	}
 }
 
@@ -91,7 +92,13 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 		if(jsonMessage.has("delete_chat_photo")){responseMessage.setDeleteChatPhoto(jsonMessage.getBoolean("delete_chat_photo"));}
 		if(jsonMessage.has("group_chat_created")){responseMessage.setGroupChatCreated(jsonMessage.getBoolean("group_chat_created"));}
 		if(jsonMessage.has("caption")){responseMessage.setCaption(jsonMessage.getString("caption"));}
-		return responseMessage;
+        if(jsonMessage.has("voice")){responseMessage.setVoice(parseVoice(jsonMessage.getJSONObject("video")));}
+        if(jsonMessage.has("supergroup_chat_created")){responseMessage.setSupergroupChatCreated(jsonMessage.getBoolean("supergroup_chat_created"));}
+        if(jsonMessage.has("channel_chat_created")){responseMessage.setChannelChatCreated(jsonMessage.getBoolean("channel_chat_created"));}
+        if(jsonMessage.has("migrate_to_chat_id")){responseMessage.setMigrateToChatId(jsonMessage.getInt("migrate_to_chat_id"));}
+        if(jsonMessage.has("migrate_from_chat_id")){responseMessage.setMigrateToChatId(jsonMessage.getInt("migrate_from_chat_id"));}
+
+            return responseMessage;
 	}
 	
 	private static Location parseLocation(JSONObject jsonLocation) {
@@ -176,4 +183,11 @@ return null;
 		if(jsonAudio.has("file_Size")) responseAudio.setFileSize(jsonAudio.getInt("file_size"));
 		return responseAudio;
 	}
+
+    private static Voice parseVoice(JSONObject jsonVoice){
+        Voice responseVoice = new Voice(jsonVoice.getString("file_id"),jsonVoice.getInt("duration"));
+        if(jsonVoice.has("mime_type")) {responseVoice.setMimeType(jsonVoice.getString("mime_type"));}
+        if(jsonVoice.has("file_size")) {responseVoice.setFileSize(jsonVoice.getInt("file_size"));}
+        return responseVoice;
+    }
 }
