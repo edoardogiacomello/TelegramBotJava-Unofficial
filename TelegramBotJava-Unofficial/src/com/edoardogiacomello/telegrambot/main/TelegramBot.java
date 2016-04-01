@@ -92,9 +92,9 @@ public class TelegramBot{
 		}
 		return null;
 	}
-	
+
 	/**
-	 * Use this method to send text messages. 
+	 * Use this method to send text messages. Retro-compatibility overload.
 	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
 	 * @param text Text of the message to be sent
 	 * @param disableWebPagePreview (Optional) Disables link previews for links in this message
@@ -102,7 +102,21 @@ public class TelegramBot{
 	 * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
 	 * @return On success, the sent Message is returned, on failure a null object is returned
 	 */
-	public Message sendMessage(int chatId, String text, boolean disableWebPagePreview, int replyToMessageId, CustomReplyKeyboard replyMarkup){
+	public Message sendMessage(int chatId, String text, boolean disableWebPagePreview, int replyToMessageId, CustomReplyKeyboard replyMarkup) {
+		return sendMessage(chatId, text, disableWebPagePreview, TelegramMethods.ParseMode.NONE, replyToMessageId, replyMarkup);
+	}
+
+		/**
+         * Use this method to send text messages.
+         * @param chatId Unique identifier for the message recipient — User or GroupChat id
+         * @param text Text of the message to be sent
+         * @param disableWebPagePreview (Optional) Disables link previews for links in this message
+         * @param parseMode Set {@link com.edoardogiacomello.telegrambot.methods.TelegramMethods.ParseMode} to MARKDOWN or HTML, if you want Telegram apps to show bold, italic, fixed-width text or inline URLs in your bot's message. Defaults to NONE.
+         * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
+         * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
+         * @return On success, the sent Message is returned, on failure a null object is returned
+         */
+	public Message sendMessage(int chatId, String text, boolean disableWebPagePreview, TelegramMethods.ParseMode parseMode, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
 		if(text == null || text.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty text message");
 		//Building request parameters
@@ -112,6 +126,7 @@ public class TelegramBot{
 		if(disableWebPagePreview) params.add(new BasicNameValuePair("disable_web_page_preview", "true"));
 		if(replyToMessageId>0)  params.add(new BasicNameValuePair("reply_to_message_id", Integer.toString(replyToMessageId)));
 		if(replyMarkup!= null) params.add(new BasicNameValuePair("reply_markup", replyMarkup.toJSONObject().toString()));
+		if(!parseMode.equals(TelegramMethods.ParseMode.NONE)) params.add (new BasicNameValuePair("parse_mode", parseMode.getValue()));
 		//Making request
 		List<TelegramData> responseList = outputParser.request(TelegramMethods.sendMessage, params);
 		//Interpreting response

@@ -22,4 +22,10 @@ public enum TelegramMethods {
 	public String getValue() {
 		return value;
 	}
+	public enum ParseMode {
+		NONE(""), HTML("HTML"), MARKDOWN("Markdown");
+		private String value;
+		private ParseMode(String value){this.value = value;}
+		public String getValue(){return value;}
+	}
 }
