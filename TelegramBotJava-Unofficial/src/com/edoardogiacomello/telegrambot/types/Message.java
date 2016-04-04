@@ -19,7 +19,7 @@ public class Message implements TelegramData {
 	private Audio audio;
 	private Document document;
 	private List<PhotoSize> photo;
-	private Sticker Sticker;
+	private Sticker sticker;
 	private Video video;
 	private Voice voice;
 	private String caption;
@@ -83,7 +83,7 @@ public class Message implements TelegramData {
 
 
 	public void setSticker(Sticker sticker) {
-		Sticker = sticker;
+		this.sticker = sticker;
 	}
 
 
@@ -207,7 +207,7 @@ public class Message implements TelegramData {
 
 
 	public Sticker getSticker() {
-		return Sticker;
+		return sticker;
 	}
 
 
@@ -281,6 +281,61 @@ public class Message implements TelegramData {
 		this.from = from;
 		this.date = date;
 		this.chat = chat;
+	}
+
+	/**
+	 * Textual representation of all the information stored in a message
+	 * @return The String representing the message
+     */
+	public String toString(){
+		StringBuffer string = new StringBuffer();
+		string.append("messageId = " + messageId +"\n");
+		if(from!=null)
+		string.append("from = " + from.toString() +"\n");
+		string.append("date = " + date +"\n");
+		if(chat!=null)
+		string.append("chat = " + chat +"\n");
+		if(forwardFrom!=null)
+		string.append("forwardFrom = " + forwardFrom.toString() +"\n");
+		string.append("forwardDate = " + forwardDate +"\n");
+		if(replyToMessage!=null)
+		string.append("replyToMessage (messageId) = " + replyToMessage.getMessageId() +"\n");
+		string.append("text = " + text +"\n");
+		if(audio!=null)
+		string.append("audio = " + audio.toString() +"\n");
+		if(document!=null)
+		string.append("document = " + document.toString() +"\n");
+		if(photo!=null)
+		string.append("photo = " + photo.toString() +"\n");
+		if(sticker !=null)
+		string.append("sticker = " + sticker.toString() +"\n");
+		if(video!=null)
+		string.append("video = " + video.toString() +"\n");
+		if(voice!=null)
+		string.append("voice = " + voice.toString() +"\n");
+		if(caption!=null)
+		string.append("caption = " + caption +"\n");
+		if(contact!=null)
+		string.append("contact = " + contact.toString() +"\n");
+		if(location!=null)
+			string.append("location = " + location.toString() +"\n");
+		if(newChatParticipant!=null)
+			string.append("newChatParticipant = " + newChatParticipant.toString() +"\n");
+		if(leftChatParticipant!=null)
+		string.append("leftChatParticipant = " + leftChatParticipant.toString() +"\n");
+		if(newChatTitle!=null)
+		string.append("newChatTitle = " + newChatTitle +"\n");
+		if(newChatPhoto!=null)
+		string.append("newChatPhoto = " + newChatPhoto.toString() +"\n");
+		string.append("groupChatCreated = " + groupChatCreated +"\n");
+		string.append("deleteChatPhoto = " + deleteChatPhoto +"\n");
+		string.append("supergroupChatCreated = " + supergroupChatCreated +"\n");
+		string.append("channelChatCreated = " + channelChatCreated +"\n");
+		string.append("migrateToChatId = " + migrateToChatId +"\n");
+		string.append("migrateFromChatId = " + migrateFromChatId +"\n");
+
+
+		return string.toString();
 	}
 	
 }

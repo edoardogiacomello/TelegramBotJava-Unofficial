@@ -74,7 +74,7 @@ public class TelegramBot{
 				lastUpdateId = ((Update)currentResponse).getUpdate_id();
 				if(eventHandler != null) {
 					eventHandler.onUpdate((Update)currentResponse); 
-					if(((Update)currentResponse).getMessage() != null) eventHandler.onMessageReceived(((Update)currentResponse).getMessage()); 
+					if(((Update)currentResponse).getMessage() != null) eventHandler.readMessage(((Update)currentResponse).getMessage());
 				}
 				}
 		}
@@ -91,6 +91,18 @@ public class TelegramBot{
 			if (currentResponse instanceof User) return (User)currentResponse;
 		}
 		return null;
+	}
+
+	/**
+	 * Use this method to send text messages in an easy way.
+	 * This overload is slightly slower than the version with all the parameters.
+	 * The parameters such as the web page preview, the parse mode and the reply markup are set to default values.
+	 * @param message The message to send.
+	 * @param replyToMessageId The message to reply to. Set to 0 if no reply is needed.
+	 * @return On success, the sent Message is returned, on failure a null object is returned
+	 */
+	public Message sendMessage(Message message, int replyToMessageId) {
+		return sendMessage(message.getChat().getChatId(), message.getText(), false, TelegramMethods.ParseMode.NONE, replyToMessageId, null);
 	}
 
 	/**
@@ -118,7 +130,7 @@ public class TelegramBot{
          */
 	public Message sendMessage(int chatId, String text, boolean disableWebPagePreview, TelegramMethods.ParseMode parseMode, int replyToMessageId, CustomReplyKeyboard replyMarkup){
 		//Checking required parameters
-		if(text == null || text.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId and a non-empty text message");
+		if(text == null || text.equals("") || chatId==0) throw new IllegalArgumentException("You must specify at least a chatId");
 		//Building request parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("chat_id", Integer.toString(chatId)));

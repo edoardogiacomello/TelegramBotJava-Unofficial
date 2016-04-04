@@ -15,5 +15,14 @@ public class GroupChat implements TelegramData {
 	public String getTitle() {
 		return title;
 	}
-	
+
+
+	@Override
+	public String toString(){
+		StringBuffer string = new StringBuffer();
+		string.append("groupChatId: " + groupChatId + ", ");
+		if (title != null)
+			string.append("title: " +title);
+		return string.toString();
+	}
 }

@@ -29,7 +29,16 @@ public class Chat implements TelegramData  {
 		if(user != null) return user.getUserId();
 		else throw new IllegalStateException("This chat object has not been initialized");
 	}
-	
+
+	@Override
+	public String toString(){
+		StringBuffer string = new StringBuffer();
+		if (user != null)
+		string.append("userId: " + user.toString() + ", ");
+		if (groupChat != null)
+		string.append("GroupChat: " + groupChat.toString());
+		return string.toString();
+	}
 	
 	
 }

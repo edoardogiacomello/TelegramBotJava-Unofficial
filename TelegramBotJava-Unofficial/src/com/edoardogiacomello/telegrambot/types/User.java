@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.types;
 
 
+
 public class User implements TelegramData {
 	private int userId;
 	private String firstName;
@@ -29,5 +30,14 @@ public class User implements TelegramData {
 	public String getFirstName() {
 		return firstName;
 	}
-	
+	@Override
+	public String toString(){
+		StringBuffer string = new StringBuffer();
+		string.append("id: " + userId + ", ");
+		string.append("Name: " + firstName + " " + lastName + "(" + userName + ")");
+
+
+		return string.toString();
+	}
+
 }

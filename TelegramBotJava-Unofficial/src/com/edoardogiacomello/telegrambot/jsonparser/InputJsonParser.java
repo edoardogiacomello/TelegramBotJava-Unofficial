@@ -58,6 +58,7 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 		}
 	}catch (Exception e){
 		Logger.getGlobal().log(Level.WARNING, "Got bad response from the server, please check the authorization token or your internet connection");
+		Logger.getGlobal().log(Level.SEVERE, e.toString());
 	} finally
 	{
 		return responseList;
@@ -92,7 +93,7 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 		if(jsonMessage.has("delete_chat_photo")){responseMessage.setDeleteChatPhoto(jsonMessage.getBoolean("delete_chat_photo"));}
 		if(jsonMessage.has("group_chat_created")){responseMessage.setGroupChatCreated(jsonMessage.getBoolean("group_chat_created"));}
 		if(jsonMessage.has("caption")){responseMessage.setCaption(jsonMessage.getString("caption"));}
-        if(jsonMessage.has("voice")){responseMessage.setVoice(parseVoice(jsonMessage.getJSONObject("video")));}
+        if(jsonMessage.has("voice")){responseMessage.setVoice(parseVoice(jsonMessage.getJSONObject("voice")));}
         if(jsonMessage.has("supergroup_chat_created")){responseMessage.setSupergroupChatCreated(jsonMessage.getBoolean("supergroup_chat_created"));}
         if(jsonMessage.has("channel_chat_created")){responseMessage.setChannelChatCreated(jsonMessage.getBoolean("channel_chat_created"));}
         if(jsonMessage.has("migrate_to_chat_id")){responseMessage.setMigrateToChatId(jsonMessage.getInt("migrate_to_chat_id"));}
