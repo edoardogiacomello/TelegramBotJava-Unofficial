@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.types.inline.results;
 
 import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import org.json.JSONObject;
 
 /**
  * Represents link to a page containing an embedded video player or a video file.
@@ -114,5 +115,33 @@ public class InlineQueryResultVideo extends InlineQueryResult{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", this.type.getValue());
+        jsonObject.put("id",this.id);
+        jsonObject.put("video_url",this.videoURL);
+        jsonObject.put("mime_type",this.mimeType);
+        jsonObject.put("message_text",this.messageText);
+        if(parseMode != null)
+            jsonObject.put("parse_mode",this.parseMode.getValue());
+
+        if(videoWidth>0)
+            jsonObject.put("video_width",this.videoWidth);
+        if(videoHeight>0)
+            jsonObject.put("video_height",this.videoHeight);
+        if(videoDuration>0)
+            jsonObject.put("video_duration",this.videoDuration);
+        jsonObject.put("thumb_url",this.thumbUrl);
+        if (title!=null)
+            jsonObject.put("title",this.title);
+        if(description!=null)
+            jsonObject.put("description",this.description);
+
+
+        jsonObject.put("disable_web_page_preview",this.disableWebPagePreview);
+        return jsonObject;
     }
 }

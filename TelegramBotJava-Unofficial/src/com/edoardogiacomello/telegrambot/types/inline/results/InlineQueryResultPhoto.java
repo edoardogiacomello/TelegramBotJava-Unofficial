@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.types.inline.results;
 
 import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import org.json.JSONObject;
 
 /**Represents a link to a photo. By default, this photo will be sent by the user with optional caption. Alternatively, you can provide message_text to send it instead of photo.
  * Created by edoardo on 05/04/16.
@@ -131,5 +132,31 @@ public class InlineQueryResultPhoto extends InlineQueryResult{
      */
     public void setDisableWebPagePreview(boolean disableWebPagePreview) {
         this.disableWebPagePreview = disableWebPagePreview;
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", this.type.getValue());
+        jsonObject.put("id",this.id);
+        jsonObject.put("photo_url",this.photoURL);
+        if(photoWidth>0)
+        jsonObject.put("photo_width",this.photoWidth);
+        if(photoHeight>0)
+        jsonObject.put("photo_height",this.photoHeight);
+
+        jsonObject.put("thumb_url",this.thumbUrl);
+        if (title!=null)
+        jsonObject.put("title",this.title);
+        if(description!=null)
+        jsonObject.put("description",this.description);
+        if(caption!=null)
+        jsonObject.put("caption",this.caption);
+        if(messageText!=null)
+        jsonObject.put("message_text",this.messageText);
+        if(parseMode != null)
+        jsonObject.put("parse_mode",this.parseMode.getValue());
+        jsonObject.put("disable_web_page_preview",this.disableWebPagePreview);
+        return jsonObject;
     }
 }

@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.jsonparser;
 
 import com.edoardogiacomello.telegrambot.types.*;
+import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -33,14 +34,16 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 		//The "result" field can be whether an array or an object
 		if (jsonResultObject instanceof JSONArray) jsonResultsArray = jsonResponse.getJSONArray("result");
 		else if (jsonResultObject instanceof JSONObject) jsonResultsArray.put(((JSONObject)jsonResultObject));
-		
 		//Response can be a Message, a User or a ProfilePhoto
 		for (int i = 0; i < jsonResultsArray.length(); i++) {
 			JSONObject jsonResult = jsonResultsArray.getJSONObject(i);
 			//checking if the response is an update
 			if (jsonResult.has("update_id")){
-				if(jsonResult.has("message")) responseList.add(new Update(jsonResult.getInt("update_id"), parseMessage(jsonResult.getJSONObject("message"))));
-				else responseList.add(new Update(jsonResult.getInt("update_id"), null));
+				if(jsonResult.has("message")) {
+					responseList.add(new Update(jsonResult.getInt("update_id"), parseMessage(jsonResult.getJSONObject("message"))));
+				} else if (jsonResult.has("inline_query")){
+					responseList.add(new Update(jsonResult.getInt("update_id"), parseInlineQuery(jsonResult.getJSONObject("inline_query"))));
+				} else responseList.add(new Update(jsonResult.getInt("update_id")));
 			}
 		//checking if the response is a User
 			else if (jsonResult.has("id") && jsonResult.has("first_name")) {
@@ -65,12 +68,16 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 	}
 }
 
+
+
 	private static JSONObject parseJSON(InputStream responseStream) throws IOException{
 		String jsonString = IOUtils.toString(responseStream,"UTF-8"); 
 		return new JSONObject(jsonString);
 		
 	}
-
+	private static InlineQuery parseInlineQuery(JSONObject jsonInlineQuery) {
+		return new InlineQuery(jsonInlineQuery.getString("id"),parseUser(jsonInlineQuery.getJSONObject("from")),jsonInlineQuery.getString("query"),jsonInlineQuery.getString("offset"));
+	}
 	private static Message parseMessage(JSONObject jsonMessage){
 		//TODO: Parse a message into an object
 		Message responseMessage = new Message(jsonMessage.getInt("message_id"), parseUser(jsonMessage.getJSONObject("from")), jsonMessage.getInt("date"), parseChat(jsonMessage.getJSONObject("chat")));

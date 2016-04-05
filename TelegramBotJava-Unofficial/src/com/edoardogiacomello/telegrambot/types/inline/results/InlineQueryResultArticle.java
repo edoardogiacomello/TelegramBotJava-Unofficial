@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.types.inline.results;
 
 import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import org.json.JSONObject;
 
 
 /**
@@ -99,5 +100,29 @@ public class InlineQueryResultArticle extends InlineQueryResult{
 
     public int getThumbHeight() {
         return thumbHeight;
+    }
+
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", this.type.getValue());
+        jsonObject.put("id",this.id);
+        jsonObject.put("title",this.title);
+        jsonObject.put("message_text",this.messageText);
+        if(parseMode!=null)
+        jsonObject.put("parse_mode",this.parseMode.getValue());
+        jsonObject.put("disable_web_page_preview",this.disableWebPagePreview);
+        if(url!=null)
+        jsonObject.put("url",this.url);
+        jsonObject.put("hide_url",this.hideUrl);
+        if (description!=null)
+        jsonObject.put("description",this.description);
+        if(thumbUrl!=null)
+        jsonObject.put("thumb_url",this.thumbUrl);
+        if(thumbWidth > 0)
+        jsonObject.put("thumb_width",this.thumbWidth);
+        if(thumbHeight > 0)
+        jsonObject.put("thumb_height",this.thumbHeight);
+        return jsonObject;
     }
 }

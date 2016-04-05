@@ -1,5 +1,8 @@
 package com.edoardogiacomello.telegrambot.types.inline.results;
 
+import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import org.json.JSONObject;
+
 /**
  * Represents a link to a video animation (H.264/MPEG-4 AVC video without sound). By default, this animated MPEG-4 file will be sent by the user with optional caption. Alternatively, you can provide message_text to send it instead of the animation.
  * Created by edoardo on 05/04/16.
@@ -12,7 +15,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
     private String title;
     private String caption;
     private String messageText;
-    private String parseMode;
+    private TelegramMethods.ParseMode parseMode;
     private boolean disableWebPagePreview;
 
     public InlineQueryResultMpeg4Gif(String id, String mpeg4URL, String thumbURL) {
@@ -49,7 +52,7 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
         return messageText;
     }
 
-    public String getParseMode() {
+    public TelegramMethods.ParseMode getParseMode() {
         return parseMode;
     }
 
@@ -77,11 +80,36 @@ public class InlineQueryResultMpeg4Gif extends InlineQueryResult {
         this.messageText = messageText;
     }
 
-    public void setParseMode(String parseMode) {
+    public void setParseMode(TelegramMethods.ParseMode parseMode) {
         this.parseMode = parseMode;
     }
 
     public void setDisableWebPagePreview(boolean disableWebPagePreview) {
         this.disableWebPagePreview = disableWebPagePreview;
     }
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", this.type.getValue());
+        jsonObject.put("id",this.id);
+        jsonObject.put("mpeg4_url",this.mpeg4URL);
+        if(mpeg4Width>0)
+            jsonObject.put("mpeg4_width",this.mpeg4Width);
+        if(mpeg4Height>0)
+            jsonObject.put("mpeg4_height",this.mpeg4Height);
+
+        jsonObject.put("thumb_url",this.thumbURL);
+        if (title!=null)
+            jsonObject.put("title",this.title);
+        if(caption!=null)
+            jsonObject.put("caption",this.caption);
+        if(messageText!=null)
+            jsonObject.put("message_text",this.messageText);
+        if(parseMode != null)
+            jsonObject.put("parse_mode",this.parseMode.getValue());
+        jsonObject.put("disable_web_page_preview",this.disableWebPagePreview);
+        return jsonObject;
+    }
 }
+
+

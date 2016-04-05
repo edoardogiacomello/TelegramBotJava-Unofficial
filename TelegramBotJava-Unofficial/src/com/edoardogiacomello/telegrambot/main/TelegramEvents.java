@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.main;
 
 import com.edoardogiacomello.telegrambot.types.*;
+import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
 
 import java.util.List;
 
@@ -72,8 +73,5 @@ public abstract class TelegramEvents {
 
 	public abstract void onLocationReceived(Message message, Location location);
 
-
-
-
-
+	public abstract void onInlineQueryReceived(InlineQuery inlineQuery);
 }

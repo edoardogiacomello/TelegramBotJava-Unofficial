@@ -1,6 +1,8 @@
 package com.edoardogiacomello.telegrambot.types;
 
 
+import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
+
 /**
  * This object represents an incoming update.
  * @author Edoardo Giacomello <edoardo.giacomello1990@gmail.com>
@@ -9,6 +11,8 @@ package com.edoardogiacomello.telegrambot.types;
 public class Update implements TelegramData {
 	private int update_id;
 	private Message message;
+	private InlineQuery inlineQuery;
+
 	public Update(int update_id) {
 		super();
 		this.update_id = update_id;
@@ -30,6 +34,14 @@ public class Update implements TelegramData {
 		this.update_id = update_id;
 		this.message = message;
 	}
-   
+
+	public Update(int update_id, InlineQuery inlineQuery) {
+		this.update_id = update_id;
+		this.inlineQuery = inlineQuery;
+	}
+
+	public InlineQuery getInlineQuery() {
+		return inlineQuery;
+	}
 }
 

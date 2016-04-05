@@ -1,6 +1,7 @@
 package com.edoardogiacomello.telegrambot.types.inline.results;
 
 import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
+import org.json.JSONObject;
 
 /**
  * Represents a link to an animated GIF file. By default, this animated GIF file will be sent by the user with optional caption. Alternatively, you can provide message_text to send it instead of the animation.
@@ -85,5 +86,28 @@ public class InlineQueryResultGif extends InlineQueryResult{
 
     public void setDisableWebPagePreview(boolean disableWebPagePreview) {
         this.disableWebPagePreview = disableWebPagePreview;
+    }
+    @Override
+    public JSONObject toJSONObject() {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("type", this.type.getValue());
+        jsonObject.put("id",this.id);
+        jsonObject.put("gif_url",this.gifURL);
+        if(gifWidth>0)
+            jsonObject.put("gif_width",this.gifWidth);
+        if(gifHeight>0)
+            jsonObject.put("gif_height",this.gifHeight);
+
+        jsonObject.put("thumb_url",this.thumbURL);
+        if (title!=null)
+            jsonObject.put("title",this.title);
+        if(caption!=null)
+            jsonObject.put("caption",this.caption);
+        if(messageText!=null)
+            jsonObject.put("message_text",this.messageText);
+        if(parseMode != null)
+            jsonObject.put("parse_mode",this.parseMode.getValue());
+        jsonObject.put("disable_web_page_preview",this.disableWebPagePreview);
+        return jsonObject;
     }
 }

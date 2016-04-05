@@ -3,6 +3,7 @@ package com.edoardogiacomello.telegrambot.example;
 import com.edoardogiacomello.telegrambot.main.TelegramBot;
 import com.edoardogiacomello.telegrambot.main.TelegramEvents;
 import com.edoardogiacomello.telegrambot.types.*;
+import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
 
 import java.util.List;
 import java.util.Scanner;
@@ -82,6 +83,11 @@ public class Example {
                 @Override
                 public void onLocationReceived(Message message, Location location) {
                     System.out.println("Location received");
+                }
+
+                @Override
+                public void onInlineQueryReceived(InlineQuery inlineQuery) {
+                    System.out.println("Inline Query Received: " + inlineQuery.getQuery());
                 }
 
             };

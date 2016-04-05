@@ -6,6 +6,7 @@ import com.edoardogiacomello.telegrambot.types.*;
 import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResult;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +77,7 @@ public class TelegramBot{
 				if(eventHandler != null) {
 					eventHandler.onUpdate((Update)currentResponse); 
 					if(((Update)currentResponse).getMessage() != null) eventHandler.readMessage(((Update)currentResponse).getMessage());
+                    if(((Update)currentResponse).getInlineQuery() != null) eventHandler.onInlineQueryReceived(((Update)currentResponse).getInlineQuery());
 				}
 				}
 		}
@@ -403,18 +405,30 @@ public class TelegramBot{
 		return null;
 	}
 
-	public boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, int cacheTime, boolean isPersonal, String nextOffset){
+	public void answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, int cacheTime, boolean isPersonal, String nextOffset){
 		//Checking required parameters
 		if(inlineQueryId == null || inlineQueryId.equals("") || inlineQueryId == null ) throw new IllegalArgumentException("You must specify at least a queryId and a non-null result array");
 		//Building request Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("inline_query_id", inlineQueryId));
-		//TODO: Implement this method
+        params.add(new BasicNameValuePair("inline_query_id", inlineQueryId));
+        JSONArray jsonResults = new JSONArray();
+        for (InlineQueryResult result: results) {
+            jsonResults.put(result.toJSONObject().toString());
+        }
+        params.add(new BasicNameValuePair("results", jsonResults.toString()));
 
-		//Making request
-		//TODO: This is a placeholder
-		return false;
+        if (cacheTime>0) {
+            params.add(new BasicNameValuePair("cache_time", Integer.toString(cacheTime)));
+        }
+        params.add(new BasicNameValuePair("is_personal", isPersonal?"true":"false"));
+        if(nextOffset!=null){
+            params.add(new BasicNameValuePair("next_offset", nextOffset));
+        }
+
+        //Making request
+        outputParser.request(TelegramMethods.answerInlineQuery, params);
 	}
+
 		
 	public void startPolling(long millis){
 		pollingExecutor = Executors.newSingleThreadScheduledExecutor();
