@@ -3,6 +3,7 @@ package com.edoardogiacomello.telegrambot.main;
 import com.edoardogiacomello.telegrambot.jsonparser.OutputJsonParser;
 import com.edoardogiacomello.telegrambot.methods.TelegramMethods;
 import com.edoardogiacomello.telegrambot.types.*;
+import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResult;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -400,6 +401,19 @@ public class TelegramBot{
 			if (response instanceof Message) return ((Message) response);
 		}
 		return null;
+	}
+
+	public boolean answerInlineQuery(String inlineQueryId, List<InlineQueryResult> results, int cacheTime, boolean isPersonal, String nextOffset){
+		//Checking required parameters
+		if(inlineQueryId == null || inlineQueryId.equals("") || inlineQueryId == null ) throw new IllegalArgumentException("You must specify at least a queryId and a non-null result array");
+		//Building request Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("inline_query_id", inlineQueryId));
+		//TODO: Implement this method
+
+		//Making request
+		//TODO: This is a placeholder
+		return false;
 	}
 		
 	public void startPolling(long millis){

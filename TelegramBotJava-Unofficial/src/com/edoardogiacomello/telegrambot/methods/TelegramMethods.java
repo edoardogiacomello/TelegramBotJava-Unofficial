@@ -14,7 +14,9 @@ public enum TelegramMethods {
 	getUserProfilePhotos("getUserProfilePhotos"),
 	getUpdates("getUpdates"), 
 	setWebhook("setWebhook"),
-	sendVoice("sendVoice");
+	sendVoice("sendVoice"),
+	answerInlineQuery("answerInlineQuery");
+
 	private String value;
 	private TelegramMethods(String value){
 		this.value = value;
