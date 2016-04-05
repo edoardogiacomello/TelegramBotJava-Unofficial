@@ -41,6 +41,7 @@ public class Example {
 					//System.out.println(message.toString());
 					//Resending the message
 					//bot.sendMessage(message, message.getMessageId());
+                    System.out.println(message.toString());
 				}
 
                 @Override

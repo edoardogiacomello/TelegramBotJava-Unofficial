@@ -175,8 +175,12 @@ return null;
 	 * @return
 	 */
 	private static Chat parseChat(JSONObject jsonChat){
-		if (jsonChat.has("title")) return new Chat(new GroupChat(jsonChat.getInt("id"), jsonChat.getString("title")));
-		else return new Chat(parseUser(jsonChat));
+		Chat chat = new Chat(jsonChat.getInt("id"),ChatType.getType(jsonChat.getString("type")));
+        if (jsonChat.has("title")){chat.setTitle(jsonChat.getString("title"));}
+        if (jsonChat.has("username")){chat.setUsername(jsonChat.getString("username"));}
+        if (jsonChat.has("first_name")){chat.setFirstName(jsonChat.getString("first_name"));}
+        if (jsonChat.has("last_name")){chat.setLastName(jsonChat.getString("last_name"));}
+       return chat;
 	}
 	private static Audio parseAudio(JSONObject jsonAudio){
 		Audio responseAudio = new Audio(jsonAudio.getString("file_id"), jsonAudio.getInt("duration"));

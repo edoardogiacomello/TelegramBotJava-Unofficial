@@ -1,6 +1,6 @@
 package com.edoardogiacomello.telegrambot.types;
 
-
+@Deprecated
 public class GroupChat implements TelegramData {
 	private int groupChatId;
 	private String title;
