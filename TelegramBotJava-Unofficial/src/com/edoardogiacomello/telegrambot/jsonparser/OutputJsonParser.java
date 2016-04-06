@@ -51,7 +51,6 @@ public class OutputJsonParser {
 			//Building request
 			HttpPost httpPost = new HttpPost(buildRequestURL(method).toURI());
 			httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-			
 			//executing request and parsing response
 			HttpResponse response = httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();

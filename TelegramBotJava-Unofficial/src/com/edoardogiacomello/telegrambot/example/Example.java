@@ -4,7 +4,12 @@ import com.edoardogiacomello.telegrambot.main.TelegramBot;
 import com.edoardogiacomello.telegrambot.main.TelegramEvents;
 import com.edoardogiacomello.telegrambot.types.*;
 import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
+import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResult;
+import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResultArticle;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,7 +30,7 @@ public class Example {
 		*/
 
 		//Receiving updates: Method 2
-		long pollingDelayMs = 2000;
+		long pollingDelayMs = 200;
 		try {
 			TelegramEvents updateHandler = new TelegramEvents() {
 				
@@ -88,6 +93,10 @@ public class Example {
                 @Override
                 public void onInlineQueryReceived(InlineQuery inlineQuery) {
                     System.out.println("Inline Query Received: " + inlineQuery.getQuery());
+                    InlineQueryResultArticle article = new InlineQueryResultArticle(new BigInteger(130, new SecureRandom()).toString(32),inlineQuery.getQuery(),inlineQuery.getQuery());
+                    List<InlineQueryResult> results = new ArrayList<>();
+                    results.add(article);
+                    bot.answerInlineQuery(inlineQuery.getId(), results,0,false,"");
                 }
 
             };

@@ -75,7 +75,7 @@ public class TelegramBot{
 				updateList.add((Update)currentResponse);
 				lastUpdateId = ((Update)currentResponse).getUpdate_id();
 				if(eventHandler != null) {
-					eventHandler.onUpdate((Update)currentResponse); 
+					eventHandler.onUpdate((Update)currentResponse);
 					if(((Update)currentResponse).getMessage() != null) eventHandler.readMessage(((Update)currentResponse).getMessage());
                     if(((Update)currentResponse).getInlineQuery() != null) eventHandler.onInlineQueryReceived(((Update)currentResponse).getInlineQuery());
 				}
@@ -413,7 +413,7 @@ public class TelegramBot{
         params.add(new BasicNameValuePair("inline_query_id", inlineQueryId));
         JSONArray jsonResults = new JSONArray();
         for (InlineQueryResult result: results) {
-            jsonResults.put(result.toJSONObject().toString());
+            jsonResults.put(result.toJSONObject());
         }
         params.add(new BasicNameValuePair("results", jsonResults.toString()));
 
