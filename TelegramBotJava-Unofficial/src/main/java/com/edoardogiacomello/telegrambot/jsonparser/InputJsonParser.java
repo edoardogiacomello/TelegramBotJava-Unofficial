@@ -209,10 +209,10 @@ return null;
         return responseVoice;
     }
 
-    private static File parseFile(JSONObject jsonFile) {
-            File file = new File(jsonFile.getString("file_id"));
-            if (jsonFile.has("file_path")) file.setFilePath(jsonFile.getString("file_path"));
-            if (jsonFile.has("file_size")) file.setFileSize(jsonFile.getInt("file_size"));
-        return file;
+    private static TelegramFile parseFile(JSONObject jsonFile) {
+            TelegramFile telegramFile = new TelegramFile(jsonFile.getString("file_id"));
+            if (jsonFile.has("file_path")) telegramFile.setFilePath(jsonFile.getString("file_path"));
+            if (jsonFile.has("file_size")) telegramFile.setFileSize(jsonFile.getInt("file_size"));
+        return telegramFile;
     }
 }

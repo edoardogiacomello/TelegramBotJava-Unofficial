@@ -6,7 +6,10 @@ import com.edoardogiacomello.telegrambot.types.*;
 import com.edoardogiacomello.telegrambot.types.inline.InlineQuery;
 import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResult;
 import com.edoardogiacomello.telegrambot.types.inline.results.InlineQueryResultArticle;
+import com.edoardogiacomello.telegrambot.utilities.TelegramFileTransfer;
 
+import java.io.File;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
@@ -88,7 +91,14 @@ public class Example {
                 public void onVoiceReceived(Message message, Voice voice) {
 
                     System.out.println("Voice received");
-                    File file = bot.getFile(voice.getFileId());
+                    TelegramFile voiceFile = bot.getFile(voice.getFileId());
+                    try {
+                       File file = TelegramFileTransfer.getFile(voiceFile,authToken);
+                        System.out.println("File received:" + file.getAbsolutePath());
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override

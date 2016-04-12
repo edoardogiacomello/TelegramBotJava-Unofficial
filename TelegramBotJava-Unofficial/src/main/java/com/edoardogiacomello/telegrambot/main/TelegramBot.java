@@ -235,7 +235,7 @@ public class TelegramBot{
 	/**
 	 *Use this method to send general files. Bots can currently send files of any type of up to 50 MB in size, this limit may be changed in the future.
 	 * @param chatId Unique identifier for the message recipient — User or GroupChat id
-	 * @param document File to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
+	 * @param document TelegramFile to send. You can either pass a file_id as String to resend a file that is already on the Telegram servers, or upload a new file using multipart/form-data.
 	 * @param replyToMessageId (Optional) If the message is a reply, ID of the original message
 	 * @param replyMarkup (Optional) Additional interface options. A JSON-serialized object for a custom reply keyboard, instructions to hide keyboard or to force a reply from the user.
 	 * @return On success, the sent Message is returned,  on failure a null object is returned
@@ -432,7 +432,7 @@ public class TelegramBot{
 	/**
 	 * Call this method to get the link for downloading a file.
      */
-	public File getFile(String fileId){
+	public TelegramFile getFile(String fileId){
 		//Checking required parameters
 		if(fileId == null) throw new IllegalArgumentException("You must specify at least a file Id");
 		//Building request parameters
@@ -443,7 +443,7 @@ public class TelegramBot{
 		List<TelegramData> responseList = outputParser.request(TelegramMethods.getFile, params);
 		//Interpreting response
 		for (TelegramData response : responseList) {
-			if (response instanceof File) return ((File) response);
+			if (response instanceof TelegramFile) return ((TelegramFile) response);
 		}
 		return null;
 	}
