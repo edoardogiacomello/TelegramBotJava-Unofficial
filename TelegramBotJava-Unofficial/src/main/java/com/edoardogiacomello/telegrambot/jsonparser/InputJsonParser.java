@@ -26,7 +26,8 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 	List<TelegramData> responseList = new ArrayList<TelegramData>();
 	try{
 	JSONObject jsonResponse = parseJSON(responseStream);
-	/* Debug */ //System.out.println("Received:" + jsonResponse.toString());
+	/* Debug */
+		//System.out.println("Received:" + jsonResponse.toString());
 	//Checking if request has been satisfied
 	if (jsonResponse.getBoolean("ok")){
 		JSONArray jsonResultsArray = new JSONArray();
@@ -54,6 +55,10 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 				//In this case the response contains a message
 				responseList.add(parseMessage(jsonResult));
 			}
+            else if (jsonResult.has("file_path")){
+                //In this case, a file is returned from a getFile request
+                responseList.add(parseFile(jsonResult));
+            }
 			
 		}
 		} else {
@@ -70,7 +75,8 @@ public static List<TelegramData> parseResponse(InputStream responseStream){
 
 
 
-	private static JSONObject parseJSON(InputStream responseStream) throws IOException{
+
+    private static JSONObject parseJSON(InputStream responseStream) throws IOException{
 		String jsonString = IOUtils.toString(responseStream,"UTF-8"); 
 		return new JSONObject(jsonString);
 		
@@ -201,5 +207,12 @@ return null;
         if(jsonVoice.has("mime_type")) {responseVoice.setMimeType(jsonVoice.getString("mime_type"));}
         if(jsonVoice.has("file_size")) {responseVoice.setFileSize(jsonVoice.getInt("file_size"));}
         return responseVoice;
+    }
+
+    private static File parseFile(JSONObject jsonFile) {
+            File file = new File(jsonFile.getString("file_id"));
+            if (jsonFile.has("file_path")) file.setFilePath(jsonFile.getString("file_path"));
+            if (jsonFile.has("file_size")) file.setFileSize(jsonFile.getInt("file_size"));
+        return file;
     }
 }

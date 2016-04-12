@@ -429,6 +429,25 @@ public class TelegramBot{
         outputParser.request(TelegramMethods.answerInlineQuery, params);
 	}
 
+	/**
+	 * Call this method to get the link for downloading a file.
+     */
+	public File getFile(String fileId){
+		//Checking required parameters
+		if(fileId == null) throw new IllegalArgumentException("You must specify at least a file Id");
+		//Building request parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("file_id", fileId));
+
+		//Making request
+		List<TelegramData> responseList = outputParser.request(TelegramMethods.getFile, params);
+		//Interpreting response
+		for (TelegramData response : responseList) {
+			if (response instanceof File) return ((File) response);
+		}
+		return null;
+	}
+
 		
 	public void startPolling(long millis){
 		pollingExecutor = Executors.newSingleThreadScheduledExecutor();

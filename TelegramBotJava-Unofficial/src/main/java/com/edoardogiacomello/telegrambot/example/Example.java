@@ -86,7 +86,9 @@ public class Example {
 
                 @Override
                 public void onVoiceReceived(Message message, Voice voice) {
+
                     System.out.println("Voice received");
+                    File file = bot.getFile(voice.getFileId());
                 }
 
                 @Override

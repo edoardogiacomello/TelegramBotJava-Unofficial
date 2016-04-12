@@ -15,7 +15,8 @@ public enum TelegramMethods {
 	getUpdates("getUpdates"), 
 	setWebhook("setWebhook"),
 	sendVoice("sendVoice"),
-	answerInlineQuery("answerInlineQuery");
+	answerInlineQuery("answerInlineQuery"),
+	getFile("getFile");
 
 	private String value;
 	private TelegramMethods(String value){
